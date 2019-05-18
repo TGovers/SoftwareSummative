@@ -34,6 +34,7 @@ SoftwareSummativeAudioProcessorEditor::SoftwareSummativeAudioProcessorEditor (So
     mixLabel.attachToComponent(&mixSlider, false);
     
     filterCutoffDial.setSliderStyle(Slider::SliderStyle::Rotary);
+    filterCutoffDial.setSize(150, 100);
     filterCutoffDial.setRange(20.0, 20000.0);
     filterCutoffDial.setTextValueSuffix("f");
     filterCutoffDial.setColour(Slider::ColourIds::rotarySliderFillColourId, Colours::yellowgreen);
@@ -83,6 +84,10 @@ void SoftwareSummativeAudioProcessorEditor::resized()
     // subcomponents in your editor..
     
     mixSlider.setBounds(10, getHeight()-100, 80, 80);
+    filterCutoffDial.setBounds(70, getHeight()-100, 80, 80);
+    filterResDial.setBounds(50, getHeight()-100, 80, 80);
+    
+    
 }
 
 void SoftwareSummativeAudioProcessorEditor::sliderValueChanged(Slider* slider)
@@ -95,7 +100,7 @@ void SoftwareSummativeAudioProcessorEditor::sliderValueChanged(Slider* slider)
         
     }
     
-   /* if (slider == &filterCutoffDial)
+    /*if (slider == &filterCutoffDial)
     {
         
         // get the value on the current slider, pass to audio processor
@@ -109,6 +114,6 @@ void SoftwareSummativeAudioProcessorEditor::sliderValueChanged(Slider* slider)
         // get the value on the current slider, pass to audio processor
         processor.resLevel.setTargetValue(filterResDial.getValue());
         
-    }
-    */
+    }*/
+    
 }

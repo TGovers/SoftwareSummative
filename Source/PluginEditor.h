@@ -33,6 +33,8 @@ private:
     Slider filterResDial;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> filterCutoffValue;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> filterResValue;
+    //std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> filterCutoffValue;
+    //std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> filterResValue;
     
     Label filterCutoffLabel;
     Label filterResLabel;
