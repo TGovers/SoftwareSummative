@@ -16,6 +16,81 @@
 //==============================================================================
 /**
 */
+
+class OtherLookAndFeel : public LookAndFeel_V4
+{
+public:
+    
+    void drawRotarySlider (Graphics &g, int x, int y, int width, int height, float sliderPos, float rotaryStartAngle, float rotaryEndAngle, Slider &slider) override
+    {
+        float diameter = jmin(width, height);
+        float radius = diameter / 2;
+        float centreX = x + width / 2;
+        float centreY = y + height / 2;
+        float rx = centreX - radius;
+        float ry = centreY - radius;
+        float angle = rotaryStartAngle + (sliderPos * (rotaryEndAngle - rotaryStartAngle));
+        
+        std::cout << rotaryStartAngle << " " << rotaryEndAngle << std::endl;
+        
+        Rectangle<float> dialArea (rx, ry, diameter, diameter);
+        
+        g.setColour(Colours::red);
+        //g.drawRect(dialArea);
+        g.fillEllipse(dialArea);
+        
+        g.setColour(Colours::black);
+        //g.fillEllipse(centreX, centreY, 5, 5);
+        
+        Path dialTick;
+        dialTick.addRectangle(0, -radius, 10.0f, radius * 0.33);
+        
+        g.fillPath(dialTick, AffineTransform::rotation(angle).translated(centreX, centreY));
+        
+        g.setColour(Colours::black);
+        g.drawEllipse(rx, ry, diameter, diameter, 5.0f);
+        
+    }
+    
+};
+
+class OtherLookAndFeel2 : public LookAndFeel_V4
+{
+public:
+    
+    void drawRotarySlider (Graphics &g, int x, int y, int width, int height, float sliderPos, float rotaryStartAngle, float rotaryEndAngle, Slider &slider) override
+    {
+        float diameter = jmin(width, height);
+        float radius = diameter / 2;
+        float centreX = x + width / 2;
+        float centreY = y + height / 2;
+        float rx = centreX - radius;
+        float ry = centreY - radius;
+        float angle = rotaryStartAngle + (sliderPos * (rotaryEndAngle - rotaryStartAngle));
+        
+        std::cout << rotaryStartAngle << " " << rotaryEndAngle << std::endl;
+        
+        Rectangle<float> dialArea (rx, ry, diameter, diameter);
+        
+        g.setColour(Colours::yellowgreen);
+        //g.drawRect(dialArea);
+        g.fillEllipse(dialArea);
+        
+        g.setColour(Colours::black);
+        //g.fillEllipse(centreX, centreY, 5, 5);
+        
+        Path dialTick;
+        dialTick.addRectangle(0, -radius, 10.0f, radius * 0.33);
+        
+        g.fillPath(dialTick, AffineTransform::rotation(angle).translated(centreX, centreY));
+        
+        g.setColour(Colours::black);
+        g.drawEllipse(rx, ry, diameter, diameter, 5.0f);
+        
+    }
+    
+};
+
 class SoftwareSummativeAudioProcessorEditor  : public AudioProcessorEditor, Slider::Listener
 {
 public:
@@ -29,6 +104,9 @@ public:
 
 private:
     
+    OtherLookAndFeel otherLookAndFeel;
+    OtherLookAndFeel2 otherLookAndFeel2;
+    
     Slider filterCutoffDial;
     Slider filterResDial;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> filterCutoffValue;
@@ -38,6 +116,20 @@ private:
     
     Label filterCutoffLabel;
     Label filterResLabel;
+    
+    Slider distDriveDial;
+    Slider distRangeDial;
+    Slider distBlendDial;
+    Slider distVolumeDial;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> distDriveValue;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> distRangeValue;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> distBlendValue;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> distVolumeValue;
+    
+    Label distDriveLabel;
+    Label distRangeLabel;
+    Label distBlendLabel;
+    Label distVolumeLabel;
     
     Slider mixSlider;
     Label mixLabel;

@@ -90,6 +90,16 @@ private:
     AudioParameterFloat* cutoff;
     AudioParameterFloat* resonance;
     
+    AudioParameterFloat* drive;
+    AudioParameterFloat* range;
+    AudioParameterFloat* blend;
+    AudioParameterFloat* volume;
+    
+    float*driveParameter = nullptr;
+    float*rangeParameter = nullptr;
+    float*blendParameter = nullptr;
+    float*volumeParameter = nullptr;
+    
     float*cutoffParameter = nullptr;
     float*resParameter = nullptr;
     

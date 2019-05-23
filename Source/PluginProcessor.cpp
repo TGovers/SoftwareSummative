@@ -27,7 +27,12 @@ SoftwareSummativeAudioProcessor::SoftwareSummativeAudioProcessor()
                        ), mState(*this, &mUndoManager, "Summative", {
          
          std::make_unique<AudioParameterFloat>("cutoff", "Cutoff", 20.0f, 20000.0f, 600.0f),
-         std::make_unique<AudioParameterFloat>("resonance", "Resonance", 1.0f, 5.0f, 1.0f)
+         std::make_unique<AudioParameterFloat>("resonance", "Resonance", 1.0f, 5.0f, 1.0f),
+         std::make_unique<AudioParameterFloat>("drive", "Drive", NormalisableRange<float>(0.0f, 1.0f, 0.0001), 0.01f),
+         std::make_unique<AudioParameterFloat>("range", "Range", NormalisableRange<float>(0.0f, 3000.0f, 0.0001), 0.01f),
+         std::make_unique<AudioParameterFloat>("blend", "Blend", NormalisableRange<float>(0.1f, 1.0f, 0.0001), 0.1f),
+         std::make_unique<AudioParameterFloat>("volume", "Volume", NormalisableRange<float>(0.0f, 3.0f, 0.0001), 0.01f),
+         
          
      }), lowPassFilter(dsp::IIR::Coefficients<float>::makeLowPass(44100, 20000.0f, 0.1f))
                                                                                  
@@ -250,6 +255,11 @@ void SoftwareSummativeAudioProcessor::processBlock (AudioBuffer<float>& buffer, 
     //updateDistParameters();
     //overdrive.process(dsp::ProcessContextReplacing <float> (block));
     
+    float mDrive = *mState.getRawParameterValue("drive");
+    float mRange = *mState.getRawParameterValue("range");
+    float mBlend = *mState.getRawParameterValue("blend");
+    float mVolume = *mState.getRawParameterValue("volume");
+    
     AudioBuffer<float> wetBuffer(getTotalNumInputChannels(), buffer.getNumSamples());
     wetBuffer.makeCopyOf(buffer);
     
@@ -260,12 +270,22 @@ void SoftwareSummativeAudioProcessor::processBlock (AudioBuffer<float>& buffer, 
 
         // ..do something to the data...
         
+        auto* channelData = buffer.getWritePointer(channel);
+        
+        
         for(int sample = 0; sample < buffer.getNumSamples(); ++sample)
         {
             //updateFilter();
             //lowPassFilter.process(dsp::ProcessContextReplacing <float> (block));
             
+            float cleanSig = *channelData;
             
+            *channelData *= mDrive * mRange;
+            
+            *channelData = (((((2.0f / float_Pi) * atan(*channelData)) * mBlend) + (cleanSig * (1.0f / mBlend))) / 2) * mVolume;
+            
+            
+            channelData++;
             
             
         }   
