@@ -4,7 +4,7 @@
               jucerVersion="5.4.3">
   <MAINGROUP id="uo5EUX" name="SoftwareSummative">
     <GROUP id="{73883369-821C-C58A-C84D-504EAAE32BB3}" name="Resources">
-      <FILE id="rXgdg0" name="ayaya7.jpg" compile="0" resource="1" file="C:/Users/Ethan Punter/Desktop/Presetantion images/ayaya/ayaya7.jpg"/>
+      <FILE id="mB072N" name="ayaya7.jpg" compile="0" resource="1" file="ayaya7.jpg"/>
     </GROUP>
     <GROUP id="{A562FD52-A4A1-1186-5B14-39E9C1352B30}" name="Source">
       <FILE id="KRyGPK" name="PluginProcessor.cpp" compile="1" resource="0"
