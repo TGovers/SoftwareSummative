@@ -103,8 +103,9 @@ public:
     
 
 private:
+	juce::Image backGround;
     
-    OtherLookAndFeel otherLookAndFeel;
+	OtherLookAndFeel otherLookAndFeel;
     OtherLookAndFeel2 otherLookAndFeel2;
     
     Slider filterCutoffDial;
